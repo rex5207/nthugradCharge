@@ -1,0 +1,551 @@
+<html>
+<head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	<title>TCounting</title>
+	<!--Lodind Image-->
+	<link rel="stylesheet" type="text/css" href="./css/wave.css">
+
+
+	<!-- jQuery library (served from Google) -->
+	<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>-->
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<!-- bxSlider Javascript file -->
+	<script src="./lib/bxslider/jquery.bxslider.min.js"></script>
+	<!-- bxSlider CSS file -->
+	<link href="./lib/bxslider/jquery.bxslider.css" rel="stylesheet"/>
+
+
+	<!--for Tags-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/hot-sneaks/jquery-ui.css">
+	<script src="./lib/tagit/tag-it.min.js" type="text/javascript" charset="utf-8"></script>
+	<link href="./lib/tagit/jquery.tagit.css" rel="stylesheet" type="text/css">
+
+	<script src="./lib/sweetalert/sweetalert.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="./lib/sweetalert/sweetalert.css">
+
+	<link href="./lib/icheck/blue.css" rel="stylesheet">
+	<script src="./lib/icheck/icheck.min.js"></script>
+
+
+
+	<link href="https://fonts.googleapis.com/css?family=Architects+Daughter" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+
+	<style type="text/css">
+
+		span.title{
+			font-size: 20px;
+		    font-weight: bold;
+		    letter-spacing:2px;
+		    text-decoration:underline;
+		}
+
+		input#studentID{
+		    border: 1px solid #BBBBBB; 
+		    background: #fff;
+		    padding:10px;
+		    width:80%;
+		    height:50px;
+		    font-size:17px;
+		    letter-spacing:2px;
+		    /*font-family: 'Architects Daughter', cursive;*/
+		    font-family: Gill Sans,Arial,sans-serif;
+		    -moz-border-radius:5px; 
+		    -webkit-border-radius: 5px;
+		    border-radius: 5px;
+		    margin-bottom:10px;
+			-webkit-animation-delay: 0.8s;
+			-webkit-animation-duration: 2s;
+			display: inline-block;
+  			vertical-align: middle;
+		}
+
+		input.nextbtn{
+		    background:black;
+		    color:white;
+		    border:2px solid transparent;
+		    cursor:pointer;
+		    text-align:center;
+		    width:70px;
+		    height:35px;
+		    font-size:16px;
+		    float:right;
+		    margin-bottom: 50px;
+		}
+
+		input:focus {
+		    outline: 0;
+		}
+		font#title{ 
+		  	font-size:40px;
+			font-family: 'Architects Daughter', cursive;
+			letter-spacing:3px;
+		  	color:white;
+		  	text-shadow:2px 2px 2px #666666;
+		  	-moz-animation-duration: 3s;
+			-webkit-animation-delay: 0.2s;
+			-webkit-animation-duration: 2s;
+			-o-animation-iteration-count: infinite;
+		}
+		font#content{ 
+		  	font-size:17px;
+			font-family: 'Open Sans', sans-serif;
+		  	color:white;
+		  	text-shadow:1px 1px 1px #666666;
+		}
+
+		table{
+			margin-bottom:100px;
+			width:90%;
+			border-collapse:collapse;
+			table-layout:fixed;
+		}
+
+		th{
+			padding: 10px;
+			vertical-align: top;
+		}
+
+		td{
+			vertical-align: top;
+			padding: 10px;
+			vertical-align:middle;
+			word-wrap:break-word;
+			height:70px;
+		}
+
+		tr.odd{
+			background-color: #fff;
+			border-bottom:1px #ececec solid;
+		}
+
+		tr.even{
+			background-color: #fefefe;
+			border-bottom:1px #ececec solid;
+		}
+
+		span.price{
+			font-size: 16px;
+		    font-weight: bold;
+		    font-family: Georgia, "Times New Roman", Times, serif;
+		    color: #222;
+		}
+
+		span.amount{
+			font-size: 16px;
+		    font-weight: bold;
+		    font-family: fantasy, "Times New Roman", Times, serif;
+		    color: #222;
+		}
+
+		.button-0 {
+		    position: relative;
+		    padding: 10px 40px;
+		    margin: 0px 10px 10px 0px;
+		    float: right;
+		    border-radius: 10px;
+		    font-family: verdana;
+		    font-size: 16px;
+		    color: #FFF;
+		    text-decoration: none;  
+		    background-color: #3498DB;
+		    border-bottom: 3px solid #2980B9;
+		    text-shadow: 0px -2px #2980B9;
+		    /* Animation */
+		    transition: all 0.1s;
+		    cursor:pointer;
+		    -webkit-transition: all 0.1s;
+		}
+
+		.button-0:hover, 
+		.button-0:focus {
+		    text-decoration: none;
+		    color: #fff;
+		}
+
+		.button-0:active {
+		    transform: translate(0px,5px);
+		    -webkit-transform: translate(0px,5px);
+		    border-bottom: 1px solid;
+		}
+/**/
+/*		a#tags{ 
+		  	font-size:10px;
+			font-family: 'Open Sans', sans-serif;
+		  	color:#125688;
+		}*/
+			
+	</style>
+
+	<script>
+		var stuID;
+		var order;//訂購數量 尺寸XS,尺寸S,尺寸M,尺寸L,尺寸XL,尺寸2XL,尺寸3XL
+		var goodName = ["大學T-尺寸XS","大學T-尺寸S","大學T-尺寸M","大學T-尺寸L","大學T-尺寸XL","大學T-尺寸2XL","大學T-尺寸3XL"];
+		var goodPrice = 760;
+		var disCountPrice = 50;
+
+		var moreStdID = []; //輸入的學生證學號
+		var discountID = []; //真正有交畢聯會費的學號
+
+		var discountMount = 0; //大學T折扣的數量
+		var discountName = []; //折扣的學號
+
+		var totalPrice = 0;
+
+
+		$(document).ready(function(){
+			slider = $('.bxslider').bxSlider({
+				adaptiveHeight: true,
+				infiniteLoop: false,
+				controls: false,
+				mode: 'fade'
+			});
+
+
+			$("#moreStudentID").tagit({
+			    // Options
+			    fieldName: "studentIDD",
+			    allowSpaces: false,
+			    placeholderText: "Enter the studentID"
+			});
+
+			$('input').iCheck({
+			    checkboxClass: 'icheckbox_square-blue',
+			    radioClass: 'iradio_square-blue',
+			    increaseArea: '20%' // optional
+			 });
+
+
+            //Enter for submit
+            document.getElementById("studentID").addEventListener("keydown", function(e) {
+			    if (!e) { var e = window.event; 
+			    	e.preventDefault(); // sometimes useful
+				}
+
+			    // Enter is pressed
+			    if (e.keyCode == 13) {
+			    	showmore();
+			    }
+				}, false);
+
+		});
+
+		function initial(){
+			document.getElementById("shopCart").innerHTML = "";
+			$('<tr style="border-bottom:1px #ececec solid;"><th style="text-align:left;width:50%">產品名稱</th><th style="width:20%">單價</th><th style="width:10%">數量</th><th style="width:20%">小計</th></tr>').appendTo('#shopCart');
+			moreStdID = []; //輸入的學生證學號
+			discountID = []; //真正有交畢聯會費的學號
+			discountMount = 0; //每個商品折扣的數量
+			discountName = []; //每個商品折扣的學號
+			totalPrice = 0;
+		}
+
+		function showmore(){
+			initial();
+			//show loading and get data from Googlesheet
+			document.getElementById("loading").style.visibility = "visible";
+			stuID = parseInt(document.getElementById("studentID").value).toString();
+			$.get("https://script.google.com/macros/s/AKfycbzvzVTKHVtb7gZIOexpDKWKf6AevTX9RRx1fb5QZT2X8ssMJMs/exec", {
+                        "stuID": stuID,
+                        "isPay": 0
+                    },
+                    function (data) {
+                    	order = data;
+                    })
+			.always(function() {
+				document.getElementById("loading").style.visibility = "hidden";
+				if(order=="沒找到資料")
+					alert(order);
+   				//show next Scrope
+				else{
+					document.getElementById("moreIDForm").style.display = "block";
+					document.getElementById("sharebox").style.display = "block";
+
+
+					//clear the tags then add
+					$("#moreStudentID").tagit("removeAll");
+					$('#moreStudentID').tagit('createTag', document.getElementById("studentID").value);
+
+
+					//change focus to next
+					var x = document.getElementsByClassName("ui-widget-content ui-autocomplete-input");
+					x[0].focus();
+
+					slider.reloadSlider();
+				}
+
+  			});
+
+		}
+
+		function showBill(){
+			document.getElementById("next").disabled = true;
+			moreStdID = document.getElementsByClassName("tagit-label");
+			document.getElementById("loading").style.visibility = "visible";
+			if(moreStdID.length!=0)
+				checkID(0 , moreStdID.length);
+			else{
+				AddtoCart();
+				document.getElementById("next").disabled = false;
+				document.getElementById("loading").style.visibility = "hidden";
+				slider.goToNextSlide();
+			}
+		}
+
+		//一一檢查輸入的學生證是否有交畢聯會費
+		function checkID(nowIdx , maxIdx){
+			$.get("https://script.google.com/macros/s/AKfycbxurgUqHBfePfqsUr9JDryK4qvmXGqhOsJx0z6ohl30smN59tk/exec", {
+	                        "stuID": moreStdID[nowIdx].innerHTML
+	                    },
+	                    function (data) {
+	                    	if(data=="YES")
+	                    		discountID.push(moreStdID[nowIdx].innerHTML);
+	                    })
+				.always(function() {
+					if(nowIdx == maxIdx-1){
+						if(discountID.length!=0)
+							checkdisCount(0 , discountID.length);
+						else{
+							AddtoCart();
+							document.getElementById("next").disabled = false;
+							document.getElementById("loading").style.visibility = "hidden";
+							slider.goToNextSlide();
+						}
+					}
+					else{
+						checkID(nowIdx+1 , maxIdx);
+					}
+	  			});
+		}
+
+		//一一檢查是否已經折抵過畢業商品
+		function checkdisCount(nowIdx , maxIdx){
+			$.get("https://script.google.com/macros/s/AKfycbzPT_Yiikv7HqUbZBHdepKwLpKOiX_xzdWGAxPMNDumy4M-Q3E/exec", {
+	                        "stuID": discountID[nowIdx],
+	                        "write": 0,
+	                        "good": order[0]+order[1]+order[2]+order[3]+order[4]+order[5]+order[6]-discountMount
+	                    },
+	                    function (data) {
+	                    	if(data==1){
+	                    		discountName[discountMount] = discountID[nowIdx];
+	                    		discountMount++;
+	                    	}
+	                    })
+				.always(function() {
+					if(nowIdx == maxIdx-1){
+						AddtoCart();
+						document.getElementById("next").disabled = false;
+						document.getElementById("loading").style.visibility = "hidden";
+						slider.goToNextSlide();
+					}
+					else{
+						checkdisCount(nowIdx+1 , maxIdx);
+					}
+	  			});
+		}
+
+		//在網頁上顯示清單
+		function AddtoCart(){
+			if(document.getElementById("baz[1]").checked){
+				goodPrice=700;
+			}
+			else{
+				goodPrice=760;
+			}
+			var index = 0;
+			totalPrice = 0;
+			//畢業商品計算
+			for(i=0;i<7;i++){
+				if(order[i]>=1){
+					index++;
+					if(index%2==1){
+						$('<tr class="odd"><td style="text-align:left;">'+goodName[i]+'</td><td style="text-align:center;"><span class="price">NT$'+numberWithCommas(goodPrice)+'</span><td style="text-align:center;"><span class="amount">'+order[i]+'</span></td><td style="text-align:center;"><span class="price">NT$'+numberWithCommas(goodPrice*order[i])+'</span></td></tr>').appendTo('#shopCart');
+						totalPrice += goodPrice*order[i];
+					}
+					if(index%2==0){
+						$('<tr class="even"><td style="text-align:left;">'+goodName[i]+'</td><td style="text-align:center;"><span class="price">NT$'+numberWithCommas(goodPrice)+'</span><td style="text-align:center;"><span class="amount">'+order[i]+'</span></td><td style="text-align:center;"><span class="price">NT$'+numberWithCommas(goodPrice*order[i])+'</span></td></tr>').appendTo('#shopCart');
+						totalPrice += goodPrice*order[i];
+					}
+				}
+			}
+
+			//畢業折扣計算
+			if(discountMount>=1){
+				index++;
+				if(index%2==1){
+					$('<tr class="odd"><td style="text-align:left;">大學T－畢聯會折扣<br>('+discountName.toString()+')</td><td style="text-align:center;"><span class="price">- NT$'+numberWithCommas(disCountPrice)+'</span><td style="text-align:center;"><span class="amount">'+discountMount+'</span></td><td style="text-align:center;"><span class="price">- NT$'+numberWithCommas(disCountPrice*discountMount)+'</span></td></tr>').appendTo('#shopCart');
+					totalPrice -= disCountPrice*discountMount;
+				}
+				if(index%2==0){
+					$('<tr class="even"><td style="text-align:left;">大學T－畢聯會折扣<br>('+discountName.toString()+')</td><td style="text-align:center;"><span class="price">- NT$'+numberWithCommas(disCountPrice)+'</span><td style="text-align:center;"><span class="amount">'+discountMount+'</span></td><td style="text-align:center;"><span class="price">- NT$'+numberWithCommas(disCountPrice*discountMount)+'</span></td></tr>').appendTo('#shopCart');
+					totalPrice -= disCountPrice*discountMount;
+				}
+			}
+
+			$('<tr><td colspan="2"></td><td style="text-align:right;padding-top:50px"><strong style="font-style:italic;">總計</strong></td><td style="text-align:center;padding-top:50px"><strong><span class="price" style="font-style:italic;font-size:20px">NT$'+numberWithCommas(totalPrice)+'</span></strong></td></tr>').appendTo('#shopCart');
+
+			$('<tr><td colspan="1"></td><td colspan="1"  align="right" style="padding-top:50px"><input type="button" value="新的訂單" class="button-0" style="background-color:#5B74A8;border-bottom: 3px solid #29447E" onClick="startNew()"></td><td colspan="2" style="padding-top:50px"><input type="button" value="確定付款" class="button-0" onClick="payBill()"></td></tr>').appendTo('#shopCart');
+
+		}
+
+		//增加學號到折抵商品
+		function addisCount(nowIdx , maxIdx){
+			$.get("https://script.google.com/macros/s/AKfycbzPT_Yiikv7HqUbZBHdepKwLpKOiX_xzdWGAxPMNDumy4M-Q3E/exec", {
+	                        "stuID": discountName[nowIdx],
+	                        "write": 1,
+	                        "good": discountMount
+	                    },
+	                    function (data) {
+	                    	if(data==1){
+	                    		discountMount--;
+	                    	}
+	                    })
+				.always(function() {
+					if(nowIdx < maxIdx-1){
+						addisCount(nowIdx+1 , maxIdx);
+					}
+	  			});
+		}
+
+		//在Google sheet加上付款資訊
+		function payBill() {
+			swal({
+					title: "完成付款",
+					text: "點擊OK後完成畢業商品付款!",
+					type: "info",
+					showCancelButton: true,
+					closeOnConfirm: false,
+					showLoaderOnConfirm: true,
+				},
+				function(){
+					if(discountName.length!=0)
+						addisCount(0 , discountName.length);
+					$.get("https://script.google.com/macros/s/AKfycbyrKm5jAv_aWHhJBkyWy8KD_8TqX6uMkUg1ZZ8y4DEh3tq1EHY/exec", {
+	                        "stuID": stuID,
+	                        "good": order[0]+order[1]+order[2]+order[3]+order[4]+order[5]+order[6],
+	                        "totalPrice": totalPrice
+	                    },
+	                    function (data) {
+	                    })
+					.always(function() {
+						swal("完成付款", "您的訂單已付款成功.", "success")
+		  			});
+				});
+
+		}
+
+		function startNew() {
+			initial();
+			document.getElementById("studentID").value = "";
+		    document.getElementById("moreIDForm").style.display = "none";
+		    document.getElementById("sharebox").style.display = "none";
+			slider.goToSlide(0);
+			slider.reloadSlider();
+		}
+
+		function numberWithCommas(x) {
+		    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+
+
+	</script>
+</head>
+<body bgcolor="#f9f9f9">
+
+      <div class="sk-wave" id="loading" style="visibility:hidden">
+        <div class="sk-rect sk-rect1"></div>
+        <div class="sk-rect sk-rect2"></div>
+        <div class="sk-rect sk-rect3"></div>
+        <div class="sk-rect sk-rect4"></div>
+        <div class="sk-rect sk-rect5"></div>
+      </div>
+
+    <div style="margin:0px auto;width:50%;vertical-align:middle;position:relative;">
+
+		<ul class="bxslider">
+			<li><br><br>
+				<div class="section">
+					<span class="title">請輸入學號或手機：</span></br></br>
+					<input style="margin-bottom:70px" text="text" autocomplete="off" placeholder="Enter your studentID." id="studentID">
+				</div>
+				<!-- <input type="button" value="►" class="nextbtn" style="margin-right:10%" onClick="showmore()"> -->
+				<div class="section" id="sharebox" style="display:none;margin-top:30px;">
+					<span class="title">是否已經分享連結：</span></br></br>
+					<input type="radio" id="baz[1]" name="iCheck" checked>
+					<label for="baz[1]" style="margin-left:10;font-weight:bold;font-size:17">已分享連結</label>　　　　
+					<input type="radio" id="baz[2]" name="iCheck">
+					<label for="baz[1]" style="margin-left:10;font-weight:bold;font-size:17">尚未分享連結</label>
+				</div>
+				
+				<div class="section">
+					<form style="width:90%;margin-bottom:100px;margin-top:100px;display:none" id="moreIDForm">
+						<span class="title">請輸入須折抵的學號：</span></br></br>
+	            		<input style="margin:50px;" name="tags" id="moreStudentID" ><br>
+	       				<input type="button" id="next" value="►" class="nextbtn" onClick="showBill()">
+	       			</form>
+				</div>
+			</li>
+
+
+			<li>
+				<table id="shopCart">
+	                <tr style="border-bottom:1px #ececec solid;">
+	                    <th style="text-align:left;width:50%">產品名稱</th>
+	                    <th style="width:20%">單價</th>
+	                    <th style="width:10%">數量</th>
+	                    <th style="width:20%">小計</th>
+	                </tr>
+	                <!-- <tr class="odd">
+	                    <td style="text-align:left;">產品名稱</td>
+	                    <td style="text-align:center;">
+	                    	<span class="price">NT$2,480</span>
+	                    </td>
+	                    <td style="text-align:center;">
+	                    	<span class="amount">2</span>
+	                    </td>
+	                    <td style="text-align:center;">
+	                    	<span class="price">NT$2,480</span>
+	                    </td>
+	                </tr>
+
+	                <tr class="even">
+	                    <td style="text-align:left;">產品名稱</td>
+	                    <td style="text-align:center;">
+	                    	<span class="price">NT$2,480</span>
+	                    </td>
+	                    <td style="text-align:center;" align="center" valign="center">
+	                    	<span class="amount">2</span>
+	                    </td>
+	                    <td style="text-align:center;">
+	                    	<span style="text-align:center;" class="price">NT$2,480</span>
+	                    </td>
+	                </tr> -->
+
+	                <!-- <tr>
+	                	<td colspan="2"></td>
+					    <td style="text-align:right;padding-top:50px">
+					        <strong style="font-style:italic;">總計</strong>
+					    </td>
+					    <td style="text-align:center;padding-top:50px">
+					        <strong>
+					        	<span class="price" style="font-style:italic;font-size:20px">NT$6,940</span>
+					        </strong>
+					    </td>
+					</tr> -->
+
+
+
+				</table>
+       		</li>
+
+		</ul>
+
+	</div>
+
+
+
+</body>
+</html>
